@@ -29,7 +29,17 @@ pipeline {
             }
         }
      }
-  
+     
+     stage("Push Docker image") {
+        steps {
+            script {
+                withCredentials([string(credentialsId: 'rajwardhan007', variable: 'dockerhubpwd')]) {
+                    sh "docker login -u rajwardhan007 -p ${dockerhubpwd}"
+                }
+                sh "docker push rajwardhan007/mynodejsapp-1.0"
+            }
+        }
+     }
    }
 
 }
